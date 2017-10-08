@@ -9,6 +9,12 @@ Checklist打印机
 * 给小孩布置每天的功课列表
 * 购物清单
 
+截图：
+
+* 主界面![](snapshots/main.png)
+
+* 设置![](snapshots/setup.png)
+
 URL: <https://github.com/pengshulin/checklist_printer>
 
 Peng Shulin <trees_peng@163.com> 2017
