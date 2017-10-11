@@ -1,0 +1,58 @@
+# Simplified-Chinese translations for checklist printer
+# Peng Shulin <trees_peng@163.com> 2017
+# All rights reserved
+#
+msgid ""
+msgstr ""
+"Last-Translator: Peng Shulin <trees_peng@163.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Checklist printer"
+msgstr "Checklist打印机"
+
+msgid "Print"
+msgstr "打印"
+
+msgid "Sheet"
+msgstr "表单"
+
+msgid "Setup"
+msgstr "设置"
+
+msgid "OK"
+msgstr "确定"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Page width"
+msgstr "页面宽度"
+
+msgid "Page height"
+msgstr "页面高度"
+
+msgid "Margin horizontal"
+msgstr "水平页边距"
+
+msgid "Margin vertical"
+msgstr "垂直页边距"
+
+msgid "Line spacing"
+msgstr "行间距"
+
+msgid "Leading char"
+msgstr "引导符"
+
+msgid "Print datetime"
+msgstr "打印日期时间"
+
+msgid "Font"
+msgstr "字体"
+
+msgid "Font size"
+msgstr "字体大小"
+
+
+

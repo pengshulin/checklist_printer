@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# coding: utf8
 #
 import os
 import re
@@ -667,14 +667,11 @@ class MainFrame(MyFrame):
             
             
 
-
-
-
-
-
 if __name__ == "__main__":
-    gettext.install("app")
+    gettext.install('messages', 'locale', unicode=True, codeset='utf8')
     app = wx.App(0)
+    #app.locale = wx.Locale(wx.LANGUAGE_CHINESE_SIMPLIFIED)
+    app.locale = wx.Locale(wx.LANGUAGE_DEFAULT)
     app.SetAppName( 'CheckListPrinterApp' )
     dialog_1 = MainFrame(None, wx.ID_ANY, "")
     app.SetTopWindow(dialog_1)
