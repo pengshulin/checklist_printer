@@ -1,19 +1,43 @@
-Checklist打印机
+Checklist Printer
 =================
 
+A small toolkit that can check items from templates quickly and print.
+
 小工具，从模板快速生成CheckList并打印，
-打印机推荐用热敏票据打印机。
+
+Narrow-width heat sensitive printer is prefered.
+
+推荐用热敏票据打印机。
+
+Support localization, current English and Chinese.
+
+支持本地化，英文和中文。
+
+Use cases:
 
 应用场景：
 
+* assign daily work for kids
+
 * 给小孩布置每天的功课列表
+
+* shopping list
+
 * 购物清单
 
-截图：
+Snapshots:
 
-* 主界面![](snapshots/main.png)
+截图:
 
-* 设置![](snapshots/setup.png)
+![](snapshots/main_en.png)
+
+![](snapshots/main.png)
+
+![](snapshots/setup_en.png)
+
+![](snapshots/setup.png)
+
+
 
 URL: <https://github.com/pengshulin/checklist_printer>
 

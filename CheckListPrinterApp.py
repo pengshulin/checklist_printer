@@ -6,28 +6,12 @@ import re
 import sys
 import time
 import ConfigParser
-
 from CheckListPrinterDlg import *
 
-
-
-ABOUT_INFO = u'''\
-CheckList打印机 V1.0
-
-快捷键：
-1 ~ 5  - 切换表单1~5
-Insert - 新增
-Delete - 删除
-Enter  - 编辑
-Space  - 反选
-Up     - 光标上移
-Down   - 光标下移
-Left   - 选中项上移
-Right  - 选中项下移
-
-URL: https://github.com/pengshulin/checklist_printer
-Peng Shullin <trees_peng@163.com> 2017
-'''
+__appname__ = 'Checklist printer'
+__version__ = '1.0'
+__website__ = 'https://github.com/pengshulin/checklist_printer'
+__author__ = 'Peng Shullin <trees_peng@163.com> 2017'
 
 
 class ChecklistPrintout(wx.Printout):
@@ -264,7 +248,23 @@ class MainFrame(MyFrame):
  
     def OnAbout(self, event):
         self.info( '' )
-        dlg = wx.MessageDialog(self, ABOUT_INFO, u'关于', wx.OK)
+        info = []
+        info.append( _(__appname__) + ' v%s'% __version__ )
+        info.append( '' )
+        info.append( _('Shortcut keys') )
+        info.append( '1 ~ 5  - ' + _('Switch sheet') )
+        info.append( 'Insert - ' + _('Append') )
+        info.append( 'Delete - ' + _('Delete') )
+        info.append( 'Enter  - ' + _('Modify') )
+        info.append( 'Up     - ' + _('Cursor move up') )
+        info.append( 'Down   - ' + _('Cursor move down') )
+        info.append( 'Left   - ' + _('Selection move up') )
+        info.append( 'Right  - ' + _('Selection move down') )
+        info.append( 'Space  - ' + _('Selection toggle') )
+        info.append( '' )
+        info.append( 'URL: ' + __website__ )
+        info.append( __author__ ) 
+        dlg = wx.MessageDialog(self, '\n'.join(info), _('About'), wx.OK)
         dlg.ShowModal()
         dlg.Destroy()
 
@@ -439,11 +439,15 @@ class MainFrame(MyFrame):
             self.OnAppend( event )
         elif keycode == wx.WXK_DELETE:
             self.OnRemove( event )
+        elif keycode == ord('S'):
+            self.OnSetup( event )
+        elif keycode == ord('I'):
+            self.OnAbout( event )
         else:
             print 'ignored keycode', keycode
 
     def OnAppend( self, event ):
-        dlg = wx.TextEntryDialog( self, u'输入新的项目：', u'添加', '')
+        dlg = wx.TextEntryDialog( self, _('Input new item'), _('Append'), '')
         if dlg.ShowModal() == wx.ID_OK:
 
             val = dlg.GetValue().strip()
@@ -519,7 +523,7 @@ class MainFrame(MyFrame):
         if idx == -1:
             return
         txt = self.list.GetItemText(idx, 0)
-        dlg = wx.TextEntryDialog( self, u'修改项目：', u'修改', txt)
+        dlg = wx.TextEntryDialog( self, _('Modify item'), _('Modify'), txt)
         if dlg.ShowModal() == wx.ID_OK:
             val = dlg.GetValue().strip()
             if val:
@@ -536,7 +540,7 @@ class MainFrame(MyFrame):
         printout = ChecklistPrintout(self)
         if printer.Print(self, printout, True):
             self.printData = wx.PrintData( printer.GetPrintDialogData().GetPrintData() )
-            self.info( u'打印完成！' )
+            self.info( _('Finished printing') )
         else:
             self.info( '' )
         printout.Destroy()
@@ -560,11 +564,13 @@ class MainFrame(MyFrame):
         filtered_fonts = []
         for f in e.GetFacenames():
             try:
-                str(f)  # 过滤掉ASCII名称的英文字体
+                # English fonts with ASCII names are filtered
+                str(f)
                 continue
             except:
+                # Fonts begins with @ are filtered (90degree rotated in Windows）
                 if f.startswith('@'):
-                    continue  # 过滤掉@开头的字体（Windows下的旋转字体）
+                    continue
                 pass
             filtered_fonts.append( f )
         dlg.combo_box_font.AppendItems( filtered_fonts )
@@ -591,7 +597,7 @@ class MainFrame(MyFrame):
         dlg.Destroy()
 
     def OnImport( self, event ):
-        dlg = wx.FileDialog( self, message="Choose import txt file", defaultDir=self.config_dir, 
+        dlg = wx.FileDialog( self, message=_("Choose import txt file"), defaultDir=self.config_dir, 
                 defaultFile='', wildcard="Txt file (*.txt)|*.txt", style=wx.OPEN )
         if dlg.ShowModal() == wx.ID_OK:
             count = 0
@@ -602,11 +608,11 @@ class MainFrame(MyFrame):
                 idx = self.list.InsertStringItem( sys.maxint, l.decode('utf8') )
                 self.list.CheckItem( idx )
                 count += 1 
-            self.info( u'成功导出%d个项目'% count )
+            self.info( _('Imported items') + ' %d'% count )
         event.Skip()
 
     def OnExport( self, event ):
-        dlg = wx.FileDialog( self, message="Choose export txt file", defaultDir=self.config_dir, 
+        dlg = wx.FileDialog( self, message=_("Choose export txt file"), defaultDir=self.config_dir, 
                 defaultFile='', wildcard="Txt file (*.txt)|*.txt", style=wx.SAVE )
         if dlg.ShowModal() == wx.ID_OK:
             f = open( dlg.GetPath().strip(), 'w+' )
@@ -615,7 +621,7 @@ class MainFrame(MyFrame):
                 f.write( txt.encode('utf-8') )
                 f.write( '\r\n' )
             f.close()
-            self.info( u'导出至%s'% dlg.GetPath() )
+            self.info( _('Exported to file') + ' %s'% dlg.GetPath() )
         event.Skip()
 
     def OnMenuSwitchSheet1(self, event):
